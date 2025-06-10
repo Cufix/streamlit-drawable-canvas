@@ -93,9 +93,12 @@ def st_canvas(
         Height of canvas in pixels. Defaults to 400.
     width: int
         Width of canvas in pixels. Defaults to 600.
-    drawing_mode: {'freedraw', 'transform', 'line', 'rect', 'circle', 'point', 'polygon'}
-        Enable free drawing when "freedraw", object manipulation when "transform", "line", "rect", "circle", "point", "polygon".
+    drawing_mode: {'freedraw', 'transform', 'line', 'rect', 'circle', 'point', 'polygon', 'polyline'}
+        Enable free drawing when "freedraw", object manipulation when "transform",
+        otherwise create new objects with "line", "rect", "circle", "point", "polygon", or "polyline".
         Defaults to "freedraw".
+        - On "polygon" mode, double-clicking will remove the latest point and right-clicking will close the polygon.
+        - On "polyline" mode, left click to add points, double-click to remove last point, right-click to finish current line.
     initial_drawing: dict
         Redraw canvas with given initial_drawing. If changed to None then empties canvas.
         Should generally be the `json_data` output from other canvas, which you can manipulate.
@@ -123,9 +126,16 @@ def st_canvas(
         background_image = _resize_img(background_image, height, width)
         # Reduce network traffic and cache when switch another configure, use streamlit in-mem filemanager to convert image to URL
         background_image_url = st_image.image_to_url(
-            background_image, width, True, "RGB", "PNG", f"drawable-canvas-bg-{md5(background_image.tobytes()).hexdigest()}-{key}" 
+            background_image,
+            width,
+            True,
+            "RGB",
+            "PNG",
+            f"drawable-canvas-bg-{md5(background_image.tobytes()).hexdigest()}-{key}",
         )
-        background_image_url = st._config.get_option("server.baseUrlPath") + background_image_url
+        background_image_url = (
+            st._config.get_option("server.baseUrlPath") + background_image_url
+        )
         background_color = ""
 
     # Clean initial drawing, override its background color

@@ -6,6 +6,7 @@ import PolygonTool from "./polygon"
 import RectTool from "./rect"
 import TransformTool from "./transform"
 import PointTool from "./point"
+import PolylineTool from "./polyline"
 
 // TODO: Should make TS happy on the Map of selectedTool --> FabricTool
 const tools: any = {
@@ -13,6 +14,7 @@ const tools: any = {
   freedraw: FreedrawTool,
   line: LineTool,
   polygon: PolygonTool,
+  polyline: PolylineTool,
   rect: RectTool,
   transform: TransformTool,
   point: PointTool

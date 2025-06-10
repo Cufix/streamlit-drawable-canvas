@@ -14,8 +14,22 @@ bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
 # Create a radio button for different drawing modes
 drawing_mode = st.sidebar.radio(
     "Drawing tool:",
-    ("freedraw", "line", "rect", "circle", "transform", "polygon", "point"),
+    ("freedraw", "line", "rect", "circle", "transform", "polygon", "point", "polyline"),
 )
+
+# Add description of the selected mode
+mode_descriptions = {
+    "freedraw": "Free drawing mode - click and drag to draw",
+    "line": "Line mode - click and drag to create lines",
+    "rect": "Rectangle mode - click and drag to create rectangles",
+    "circle": "Circle mode - click and drag to create circles",
+    "transform": "Transform mode - move and resize objects",
+    "polygon": "Polygon mode - click to add points, double-click to remove last point, right-click to close",
+    "point": "Point mode - click to place points",
+    "polyline": "Polyline mode - click to add points, double-click to remove last point, right-click to finish",
+}
+
+st.sidebar.write(f"**Mode Instructions:**  \n{mode_descriptions[drawing_mode]}")
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 

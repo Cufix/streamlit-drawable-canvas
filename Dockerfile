@@ -11,12 +11,12 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY . .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir setuptools wheel twine
+RUN pip install --no-cache-dir setuptools wheel
 
+# Copy package files
+COPY . .
 # Build frontend
 WORKDIR /app/streamlit_drawable_canvas/frontend
 RUN npm ci
